@@ -11,7 +11,10 @@
 class timer
 {
 public:
-  timer (size_t id, const char* name, bool start = true);
+  timer (size_t id,
+         const char* name,
+         bool start = true,
+         bool recursive = false);
 
   ~timer () {stop ();}
 
@@ -34,8 +37,10 @@ private:
     std::uint64_t count = 0;
     timespec time = {0, 0};
 
-    bool started = false;
+    std::uint64_t started = 0;
     timespec start_time = {0, 0};
+
+    bool recursive = false;
   };
 
   static std::vector<timer_data> timers;
