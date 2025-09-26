@@ -25,7 +25,7 @@ public:
   stop ();
 
   static void
-  print ();
+  print (bool total_count = false, bool id = false);
 
 private:
   size_t id_;

@@ -90,12 +90,19 @@ stop ()
 }
 
 void timer::
-print ()
+print (bool total_count, bool id)
 {
-  cerr << "total (sec)   name\n";
+  cerr << "  total (sec)";
 
-  for (const timer_data& t: timers)
+  if (total_count)
+    cerr << "   count";
+
+  cerr << " name\n";
+
+  for (size_t i (0); i != timers.size (); ++i)
   {
+    const timer_data& t (timers[i]);
+
     if (t.name != nullptr)
     {
       const timespec& tm (t.time);
@@ -109,7 +116,15 @@ print ()
       cerr.fill (fc);
       cerr.flags (fl);
 
-      cerr << ' ' << t.name << endl;
+      if (total_count)
+        cerr << ' ' << setw (7) << t.count;
+
+      cerr << ' ' << t.name;
+
+      if (id)
+        cerr << " [" << i << ']';
+
+      cerr << endl;
     }
   }
 }
